@@ -10,16 +10,16 @@
   transformed data {
     real unifly ;
     real unifhy ;
-    real normalSigmay ;
+    real normalsigmay ;
     real uniflx ;
     real unifhx ;
-    real normalSigmax ;
+    real normalsigmax ;
     unifl <- sdY/1000 ;
     unifh <- sdY*1000 ;
-    normalSigmay <- sdY*100 ;
+    normalsigmay <- sdY*100 ;
     unifl <- sdX/1000 ;
     unifh <- sdX*1000 ;
-    normalSigmax <- sdX*100 ;
+    normalsigmax <- sdX*100 ;
       }
   parameters {
     real muy ;
@@ -29,10 +29,10 @@
   }
   model {
     sigmay ~ uniform( unifly , unifhy ) ;
-    muy ~ normal( meanY , normalSigmax ) ; 
+    muy ~ normal( meanY , normalsigmax ) ; 
     y ~normal( muy , sigmay ) ;
     sigmax ~ uniform( uniflx , unifhx ) ;
-    mux ~ normal( meanX , normalSigmax ) ; 
+    mux ~ normal( meanX , normalsigmax ) ; 
     x ~normal( mux , sigmax ) ;
   }
   generated quantities{
