@@ -14,11 +14,11 @@
     real uniflx ;
     real unifhx ;
     real normalSigmax ;
-    unifLoy <- sdY/1000 ;
-    unifHiy <- sdY*1000 ;
+    unifl <- sdY/1000 ;
+    unifh <- sdY*1000 ;
     normalSigmay <- sdY*100 ;
-    unifLox <- sdX/1000 ;
-    unifHix <- sdX*1000 ;
+    unifl <- sdX/1000 ;
+    unifh <- sdX*1000 ;
     normalSigmax <- sdX*100 ;
       }
   parameters {
