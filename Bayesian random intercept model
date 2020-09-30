@@ -7,7 +7,6 @@ data{
     int N_subject_index;
     int N_block_index;
 }
-
 parameters{
     real Intercept;
     real beta_norm_r;
@@ -17,7 +16,6 @@ parameters{
     real vary_block_index[N_block_index];
     real<lower=0> sigma_block_index;
 }
-
 model{
     real vary[N];
     real glm[N];
@@ -39,7 +37,6 @@ model{
     }
     norm_latencysd ~ normal( glm , sigma );
 }
-
 generated quantities{
     real dev;
     real vary[N];
