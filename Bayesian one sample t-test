@@ -5,11 +5,11 @@
     real sdY ;
   }
   transformed data {
-    real uniflo ;
-    real unifli ;
+    real unifl ;
+    real unifh ;
     real normalSigma ;
-    unifLo <- sdY/1000 ;
-    unifHi <- sdY*1000 ;
+    unifl <- sdY/1000 ;
+    unifh <- sdY*1000 ;
     normalSigma <- sdY*100 ;
   }
   parameters {
@@ -17,7 +17,7 @@
     real<lower=0> sigma ;
   }
   model {
-    sigma ~ uniform( uniflo , unifhi ) ;
+    sigma ~ uniform( unifl , unifh ) ;
     mu ~ normal( meanY , normalSigma ) ; 
     y ~normal( mu , sigma ) ;
   }
