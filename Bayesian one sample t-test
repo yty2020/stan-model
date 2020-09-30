@@ -7,10 +7,10 @@
   transformed data {
     real unifl ;
     real unifh ;
-    real normalSigma ;
+    real normalsigma ;
     unifl <- sdY/1000 ;
     unifh <- sdY*1000 ;
-    normalSigma <- sdY*100 ;
+    normalsigma <- sdY*100 ;
   }
   parameters {
     real mu ;
@@ -18,7 +18,7 @@
   }
   model {
     sigma ~ uniform( unifl , unifh ) ;
-    mu ~ normal( meanY , normalSigma ) ; 
+    mu ~ normal( meanY , normalsigma ) ; 
     y ~normal( mu , sigma ) ;
   }
   generated quantities{
