@@ -1,0 +1,44 @@
+  data {
+    int<lower=1> Ntotal ;
+    real y[Ntotal] ;
+    real meanY ;
+    real sdY ;
+    real x[Ntotal] ;
+    real meanX ;
+    real sdX ;
+  }
+  transformed data {
+    real unifly ;
+    real unifhy ;
+    real normalSigmay ;
+    real uniflx ;
+    real unifhx ;
+    real normalSigmax ;
+    unifLoy <- sdY/1000 ;
+    unifHiy <- sdY*1000 ;
+    normalSigmay <- sdY*100 ;
+    unifLox <- sdX/1000 ;
+    unifHix <- sdX*1000 ;
+    normalSigmax <- sdX*100 ;
+      }
+  parameters {
+    real muy ;
+    real<lower=0> sigmay ;
+    real mux ;
+    real<lower=0> sigmax ;
+  }
+  model {
+    sigmay ~ uniform( unifly , unifhy ) ;
+    muy ~ normal( meanY , normalSigmax ) ; 
+    y ~normal( muy , sigmay ) ;
+    sigmax ~ uniform( uniflx , unifhx ) ;
+    mux ~ normal( meanX , normalSigmax ) ; 
+    x ~normal( mux , sigmax ) ;
+  }
+  generated quantities{
+    real diff;
+    real effectsize;
+    diff <- mux-muy;
+    effectsize<-(mux-muy)/sqrt((sigmax^2+sigmay^2)/2);   
+  }
+
