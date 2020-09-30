@@ -21,3 +21,7 @@
     mu ~ normal( meanY , normalSigma ) ; 
     y ~normal( mu , sigma ) ;
   }
+  generated quantities{
+    real effectsize;
+    effectsize<-(mu-0)/sigma;
+  }
