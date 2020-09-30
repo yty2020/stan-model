@@ -1,0 +1,55 @@
+data{
+    int N;
+    real norm_latencysd[N];
+    real norm_r[N];
+    int subject_index[N];
+    int block_index[N];
+    int N_subject_index;
+    int N_block_index;
+}
+
+parameters{
+    real Intercept;
+    real beta_norm_r;
+    real<lower=0> sigma;
+    real vary_subject_index[N_subject_index];
+    real<lower=0> sigma_subject_index;
+    real vary_block_index[N_block_index];
+    real<lower=0> sigma_block_index;
+}
+
+model{
+    real vary[N];
+    real glm[N];
+    // Priors
+    Intercept ~ normal( 0 , 100 );
+    beta_norm_r ~ normal( 0 , 100 );
+    sigma_subject_index ~ uniform( 0 , 100 );
+    sigma_block_index ~ uniform( 0 , 100 );
+    sigma ~ uniform( 0 , 100 );
+    // Varying effects
+    for ( j in 1:N_subject_index ) vary_subject_index[j] ~ normal( 0 , sigma_subject_index );
+    for ( j in 1:N_block_index ) vary_block_index[j] ~ normal( 0 , sigma_block_index );
+    // Fixed effects
+    for ( i in 1:N ) {
+        vary[i] <- vary_subject_index[subject_index[i]]
+                + vary_block_index[block_index[i]];
+        glm[i] <- vary[i] + Intercept
+                + beta_norm_r * norm_r[i];
+    }
+    norm_latencysd ~ normal( glm , sigma );
+}
+
+generated quantities{
+    real dev;
+    real vary[N];
+    real glm[N];
+    dev <- 0;
+    for ( i in 1:N ) {
+        vary[i] <- vary_subject_index[subject_index[i]]
+                + vary_block_index[block_index[i]];
+        glm[i] <- vary[i] + Intercept
+                + beta_norm_r * norm_r[i];
+        dev <- dev + (-2) * normal_log( norm_latencysd[i] , glm[i] , sigma );
+    }
+}
