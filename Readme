@@ -1,0 +1,5 @@
+Bayesian one-sample t-test and two-sample t-test allow to run a t-test with MCMC simulated confidence interval and effect size
+and the models should be usded under rstan packages (2016)
+
+References
+Team, Stan Developent. "RStan: the R interface to Stan." R package version 2.1 (2016).
